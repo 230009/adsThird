@@ -4,9 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class BST<K extends Comparable<K>, V> {
-    private Node root;
+    protected Node root;
+    private int size;
 
-    private class Node {
+    protected class Node {
         private K key;
         private V val;
         private Node left, right;
@@ -15,6 +16,18 @@ public class BST<K extends Comparable<K>, V> {
             this.key = key;
             this.val = val;
         }
+
+        public K getKey() {
+            return key;
+        }
+
+        public V getVal() {
+            return val;
+        }
+    }
+
+    public BST() {
+        this.size = 0;
     }
 
     public void put(K key, V val) {
@@ -22,7 +35,10 @@ public class BST<K extends Comparable<K>, V> {
     }
 
     private Node put(Node current, K key, V val) {
-        if (current == null) return new Node(key, val);
+        if (current == null) {
+            size++;
+            return new Node(key, val);
+        }
         int comp = key.compareTo(current.key);
         if (comp < 0) {
             current.left = put(current.left, key, val);
@@ -36,10 +52,7 @@ public class BST<K extends Comparable<K>, V> {
 
     public V get(K key) {
         Node node = get(root, key);
-        if (node == null) {
-            return null;
-        }
-        return node.val;
+        return node == null ? null : node.val;
     }
 
     private Node get(Node current, K key) {
@@ -71,40 +84,59 @@ public class BST<K extends Comparable<K>, V> {
             current.right = delete(current.right, key);
         } else {
             if (current.left == null) {
+                size--;
                 return current.right;
             }
             if (current.right == null) {
+                size--;
                 return current.left;
             }
-            current.key = findSmallestValue(current.right);
-            current.right = delete(current.right, current.key);
+            Node temp = current;
+            current.key = findSmallestValue(temp.right);
+            current.right = delete(temp.right, current.key);
         }
         return current;
     }
+
     private K findSmallestValue(Node node) {
-        return node.right == null ? node.key : findSmallestValue(node.right);
+        return node.left == null ? node.key : findSmallestValue(node.left);
     }
 
-    private Node deleteMin(Node node) {
-        if (node.left == null) {
-            return node.right;
-        }
-        node.left = deleteMin(node.left);
-        return node;
+    public int size() {
+        return size;
     }
 
-    public Iterable<K> iterator() {
+    public Node getRoot() {
+        return root;
+    }
+
+    public Iterator<K> iterator() {
         List<K> keys = new ArrayList<>();
-        inOrderTraversal(root, keys);
-        return keys;
+        inOrderTraversalKeys(root, keys);
+        return keys.iterator();
     }
-    private void inOrderTraversal(Node node, List<K> keys) {
+
+    private void inOrderTraversalKeys(Node node, List<K> keys) {
         if (node != null) {
-            inOrderTraversal(node.left, keys);
-            keys.add(node.key);
-            inOrderTraversal(node.right, keys);
+            inOrderTraversalKeys(node.left, keys);
+            keys.add(node.getKey());
+            inOrderTraversalKeys(node.right, keys);
+        }
+    }
+
+    public void inOrder() {
+        List<Node> nodes = new ArrayList<>();
+        inOrderTraversalNodes(root, nodes);
+        for (Node node : nodes) {
+            System.out.println("Key: " + node.getKey() + ", Value: " + node.getVal());
+        }
+    }
+
+    private void inOrderTraversalNodes(Node node, List<Node> nodes) {
+        if (node != null) {
+            inOrderTraversalNodes(node.left, nodes);
+            nodes.add(node);
+            inOrderTraversalNodes(node.right, nodes);
         }
     }
 }
-
-
