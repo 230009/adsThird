@@ -25,7 +25,7 @@ public class MyTestingClass {
     }
     public static void main(String[] args) {
         MyTestingClass x1 = new MyTestingClass(1, "Liya");
-        MyTestingClass x2 = new MyTestingClass(1, "Zhibek");
+        MyTestingClass x2 = new MyTestingClass(1, "Liya");
 
         System.out.println("for x1: " + x1.hashCode());
         System.out.println("for x2: " + x2.hashCode());
