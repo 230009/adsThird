@@ -30,10 +30,22 @@ public class BST<K extends Comparable<K>, V> {
         this.size = 0;
     }
 
+    /**
+     * This method returns mapped value with key in BST
+     *
+     * @param key The key value
+     * @param val The value that mapped with key
+     */
     public void put(K key, V val) {
         root = put(root, key, val);
     }
 
+    /**
+     * @param current
+     * @param key
+     * @param val
+     * @return
+     */
     private Node put(Node current, K key, V val) {
         if (current == null) {
             size++;

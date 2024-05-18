@@ -1,29 +1,40 @@
 package src;
 
+import java.util.Objects;
+
 public class MyTestingClass {
     private int id;
     private String name;
-    public MyTestingClass (int id, String name){
+
+    public MyTestingClass(int id, String name) {
         this.id = id;
         this.name = name;
     }
-    public boolean equals(Object x){
+
+    public boolean equals(Object x) {
         if (this == x) return true;
         if (x != null || getClass() != x.getClass()) return false;
         MyTestingClass that = (MyTestingClass) x;
         return id == that.id && name.equals(that.name);
     }
+
+    @Override
     public int hashCode() {
         int number = 13;
         int result = 1;
         result = number * result + id;
-        result = number * result + ((name == null)? 0:hashCode());
+        result = number * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
-    public String toString(){
+
+    @Override
+    public String toString() {
         return "id = " + id + ", name = " + name;
     }
-    public static void main(String[] args) {
+
+
+
+    public static void test() {
         MyTestingClass x1 = new MyTestingClass(1, "Liya");
         MyTestingClass x2 = new MyTestingClass(1, "Liya");
 
