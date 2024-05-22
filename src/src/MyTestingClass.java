@@ -6,11 +6,21 @@ public class MyTestingClass {
     private int id;
     private String name;
 
+    /**
+     * @param id the identifier for this instance
+     * @param name the name for this instance
+     *
+     */
     public MyTestingClass(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
+    /**
+     * @param x the object to compare to
+     * @return true if the objects are equal, false otherwise
+     * Checks if this instance is equal to another object.
+     */
     public boolean equals(Object x) {
         if (this == x) return true;
         if (x != null || getClass() != x.getClass()) return false;
@@ -18,6 +28,9 @@ public class MyTestingClass {
         return id == that.id && name.equals(that.name);
     }
 
+    /**
+     * @return returns the hash code value
+     */
     @Override
     public int hashCode() {
         int number = 13;
@@ -27,6 +40,9 @@ public class MyTestingClass {
         return result;
     }
 
+    /**
+     * @return  returns a string representation
+     */
     @Override
     public String toString() {
         return "id = " + id + ", name = " + name;
