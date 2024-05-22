@@ -3,6 +3,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * A binary search tree (BST) is a data structure for efficient searching, inserting, and deleting data
+ * @param <K> the type of keys (which must be comparable)
+ * @param <V> the type of value
+ */
 public class BST<K extends Comparable<K>, V> {
     protected Node root;
     private int size;
@@ -12,6 +17,11 @@ public class BST<K extends Comparable<K>, V> {
         private V val;
         private Node left, right;
 
+        /**
+         *  Constructs a new Node with the given key and value.
+         * @param key the key related to this node
+         * @param val the value related to this node
+         */
         public Node(K key, V val) {
             this.key = key;
             this.val = val;
@@ -39,13 +49,6 @@ public class BST<K extends Comparable<K>, V> {
     public void put(K key, V val) {
         root = put(root, key, val);
     }
-
-    /**
-     * @param current
-     * @param key
-     * @param val
-     * @return
-     */
     private Node put(Node current, K key, V val) {
         if (current == null) {
             size++;
